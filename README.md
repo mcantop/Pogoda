@@ -1,7 +1,7 @@
 # Pogoda
 ## Projekt na zaliczenie | OpenWeather API + React & Bootstrap
 
-Strona 
+![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss1.png)
 
 
 
