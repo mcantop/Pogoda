@@ -1,17 +1,43 @@
 import { CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Button, FormControl, Collapse } from "react-bootstrap";
+import { Carousel } from 'react-bootstrap'
 import "./App.css";
 
 function App() {
+  const cityList = ['Warszawa', 'Gdańsk', 'Gdynia', 'Sopot', 'Kraków', 'Los Angeles', 'Poznań', 'Atlanta', 'New York', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'San Jose', 'Austin', 'Jacksonville'];
+
+  const accessKey = "Nb5YGtqz4RLQ9kHz43_tfNe_XUn1mY4Y1Kp-IzekZF0"
   const apiKey = "1d342e185959e0409946f8fcb4364c85"
-  const [cityName, setCityName] = useState("Gdansk");
+
   const [inputText, setInputText] = useState("");
   const [data, setData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [unit, setUnit] = useState("C");
   const [isVisible, setIsVisible] = useState(false);
+  const [image, setImage] = useState([]);
+  const [cityName, setCityName] = useState("Kraków");
+
+  useEffect(() => {
+    fetch(
+      `https://api.unsplash.com/search/photos?query=${cityName}&client_id=${accessKey}`
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.results) {
+          setImage(data.results.slice(0, 3));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   useEffect(() => {
     fetch(
@@ -32,32 +58,67 @@ function App() {
       .finally(() => setLoading(false))
   }, [cityName, error]);
 
+  const search = (searchTerm) => {
+    setCityName(searchTerm);
+    if (!searchTerm) {
+      alert("Miasto nie może być puste!");
+      return;
+    }
+    setInputText("");
+    fetch(
+      `https://api.unsplash.com/search/photos?query=${searchTerm}&client_id=${accessKey}`
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw Error(res.statusText);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.results) {
+          setImage(data.results.slice(0, 3));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   const handleSearch = (e) => {
     if (e.key === "Enter") {
-      setCityName(e.target.value);
-      setInputText("")
+      search(e.target.value);
     }
   }
 
   const handleSearchClick = () => {
-    setCityName(inputText)
-    setInputText("")
+    search(inputText);
   }
 
   const handleUnitChange = () => {
     setUnit(unit === "C" ? "F" : "C")
   }
 
+  const generateRandomCity = () => {
+    const randomIndex = Math.floor(Math.random() * cityList.length);
+    const randomCity = cityList[randomIndex];
+    setCityName(randomCity);
+    search(randomCity)
+  }
+
   return (
     <div className="bg_img">
 
       <header>
-        Pogoda
+        Pogoda w mieście {cityName}
       </header>
 
       {
         !loading ? (
           <>
+          <Button onClick={generateRandomCity} className="randomButton">
+            <i class="bi bi-dice-3"></i> Wylosuj Miasto
+          </Button>
+
             <div className="center-content">
               <Button variant="outline-secondary" className="metricButton" onClick={handleUnitChange}>
                 {unit === "C" ? "°C" : "°F"}
@@ -68,6 +129,21 @@ function App() {
               <Button className="searchButton" onClick={handleSearchClick}>
                 <i className="bi bi-search"></i>
               </Button>
+            </div>
+
+            <div className="carouselContainer">
+              <Carousel>
+                {image.map((image, index) => (
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={image.urls.small}
+                      alt={image.alt_description}
+                    />
+
+                  </Carousel.Item>
+                ))}
+              </Carousel>
             </div>
 
             <div className="group-container bg-secondary">
@@ -144,7 +220,7 @@ function App() {
       }
 
       <footer>
-        Projekt na zaliczenie | OpenWeather API + React & Bootstrap
+        Projekt na zaliczenie | OpenWeather API, Unsplash API + React & Bootstrap
       </footer>
 
     </div>
