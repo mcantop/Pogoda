@@ -7,7 +7,7 @@ Aplikacja korzysta z OpenWeatherMap API, aby pobrać dane o pogodzie i wyświetl
 
 Aplikacja pozwala także na losowe generowanie miasta, dzięki czemu użytkownik ma możliwość przeglądnięcia prognozy pogody dla różnych miast bez konieczności ich ręcznego wprowadzania. Dodatkowo, aplikacja korzysta z Unsplash API, aby pobrać i wyświetlić zdjęcia miasta w pięknej karuzeli, co dodaje dodatkowego elementu interaktywności i ciekawości. 
 
-![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss1.png)
-![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss2.png)
-![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss3.png)
+![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss11.png)
+![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss22.png)
+![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss33.png)
 ![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss4.png)
