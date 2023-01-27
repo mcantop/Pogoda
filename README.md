@@ -10,3 +10,4 @@ Aplikacja pozwala także na losowe generowanie miasta, dzięki czemu użytkownik
 ![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss1.png)
 ![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss2.png)
 ![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss3.png)
+![In a single picture](https://github.com/mcantop/Pogoda/blob/main/ss4.png)
